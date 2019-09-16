@@ -13,7 +13,7 @@ import smuthi.coordinates as coord
 from scipy import io as sio
 from scipy import interpolate as sinterp
 import numpy.matlib as mlb
-import convfun
+#import convfun
 from scipy.signal import find_peaks
 from scipy.interpolate import CubicSpline
 
@@ -226,7 +226,8 @@ def GetTmatrix(simulation):
     tmat = simulation.particle_list[0].t_matrix
     zer = 0*tmat
     if len(simulation.particle_list)>1:
-        tmat = convfun.listtoarr([tmat,zer,zer,tmat])
+        tmat = 
+        un.listtoarr([tmat,zer,zer,tmat])
     efftmat = np.dot(Minv, tmat)
     return efftmat, initcoeff, scatcoeff
 
