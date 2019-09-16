@@ -14,6 +14,8 @@ from scipy import io as sio
 from scipy import interpolate as sinterp
 import numpy.matlib as mlb
 import convfun
+from scipy.signal import find_peaks
+from scipy.interpolate import CubicSpline
 
 
 # possible future imports
@@ -263,6 +265,19 @@ def ParallelWavelengthSeries(wl, nkdata, par_list, subri=1, topri=1, num_cores=4
     res = Parallel(n_jobs=num_cores)(
         delayed(ParallelSim)(wl, nkdata, par_list, subri, topri, ii) for ii in range(len(wl)))
     return res
+
+def findMaxima(wlrange,wyn):
+    """
+    findMaxima uses interpolation + find_peaks function to find the maxima of arbitrary curve
+    :param wlrange: x values of the curve
+    :param wyn: y values of the curve
+    :return: maxima positions
+    """
+    wynf = CubicSpline(wlrange, wyn)
+    wlrange_dense = np.linspace(np.min(wlrange), np.max(wlrange), 1000)
+    wyn_interp = wynf(wlrange_dense)
+    peaks, _ = find_peaks(wyn_interp)
+    return wlrange_dense[peaks]
 
 
 if __name__ == '__main__':
