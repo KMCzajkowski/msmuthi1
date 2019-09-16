@@ -226,8 +226,8 @@ def GetTmatrix(simulation):
     tmat = simulation.particle_list[0].t_matrix
     zer = 0*tmat
     if len(simulation.particle_list)>1:
-        tmat = 
-        un.listtoarr([tmat,zer,zer,tmat])
+        tmat = None
+        #un.listtoarr([tmat,zer,zer,tmat])
     efftmat = np.dot(Minv, tmat)
     return efftmat, initcoeff, scatcoeff
 
